@@ -2,15 +2,15 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    color:burlywood;
-    background-image: url('https://i.imgur.com/EvcLiq5.png');
+    color: red;
+    background-image:url('https://i.imgur.com/EvcLiq5.png');
     
   }
   
   
   main {
     flex: 1 0 auto;
-    color:black;
+    color: lightcoral;
     font-size: medium;
     font-family:Didot, serif ;
     font-weight: 900;

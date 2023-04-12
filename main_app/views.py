@@ -1,40 +1,88 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect 
 
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 # Create your views here.
 # Add the following import
 from django.http import HttpResponse
 
+from .models import Puppy, Toy
 
-# Add the Cat class & list and view function below the imports
-class Puppy:  # Note that parens are optional if not inheriting from another class
-  def __init__(self, name, breed, gender, description, age):
-    self.name = name
-    self.breed = breed
-    self.gender = gender
-    self.description = description
-    self.age = age
-    
+from .forms import FeedingForm
 
-puppies = [
-  Puppy('Penny', 'poodle','girl', 'cuddly puppy', 2),
-  Puppy('Leo', 'siberian husky','boy', 'playful', 0),
-  Puppy('Blue', 'akita','girl', '3 legged puppy', 3)
-]
+class PuppyCreate(CreateView):
+  model = Puppy
+  fields = '__all__'
+
+class PuppyUpdate(UpdateView):
+  model = Puppy
+  # Let's disallow the renaming of a cat by excluding the name field!
+  fields = ['breed', 'description', 'age']
+
+class PuppyDelete(DeleteView):
+  model = Puppy
+  success_url = '/puppies/'
+
+class ToyList(ListView):
+  model = Toy
+
+class ToyDetail(DetailView):
+  model = Toy
+
+class ToyCreate(CreateView):
+  model = Toy
+  fields = '__all__'
+
+class ToyUpdate(UpdateView):
+  model = Toy
+  fields = ['name', 'color']
+
+class ToyDelete(DeleteView):
+  model = Toy
+  success_url = '/toys/'
+
+
+
+
+def assoc_toy(request, puppy_id, toy_id):
+  # Note that you can pass a toy's id instead of the whole object
+  Puppy.objects.get(id=puppy_id).toys.add(toy_id)
+  return redirect('detail', puppy_id=puppy_id)
 
 
 
 
 
-
-
-
-
-
-
-
-# Add new view
 def puppies_index(request):
-  return render(request, 'puppies/index.html', { 'puppies': puppies })
+    # key 'puppies' will be the variable name in the puppies/index.html
+    # puppies will be the array that we are storing in the puppies variable
+
+    puppies = Puppy.objects.all()  # finding all the cats from the database!
+    return render(request, 'puppies/index.html', {'puppies': puppies})
+
+
+def puppies_detail(request, puppy_id):
+  puppy = Puppy.objects.get(id=puppy_id)
+  # instantiate FeedingForm to be rendered in the template
+  toys_puppy_doesnt_have = Toy.objects.exclude(id__in = puppy.toys.all().values_list('id'))
+  feeding_form = FeedingForm()
+  return render(request, 'puppies/detail.html', {
+    'puppy': puppy, 'feeding_form': feeding_form,
+    # Add the toys to be displayed
+    'toys': toys_puppy_doesnt_have
+  })
+
+def add_feeding(request, puppy_id):
+  # create a ModelForm instance using the data in request.POST
+  form = FeedingForm(request.POST)
+  # validate the form
+  if form.is_valid():
+    # don't save the form to the db until it
+    # has the puppy_id assigned
+    new_feeding = form.save(commit=False)
+    new_feeding.puppy_id = puppy_id
+    new_feeding.save()
+  return redirect('detail', puppy_id=puppy_id)
 
 
 
@@ -42,10 +90,10 @@ def puppies_index(request):
 
 # Define the home view
 def home(request):
-  return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
+    return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
 
 
 def about(request):
-    #django is configured to know automatically
-    #to look inside of a templates folder for the html files
+    # django is configured to know automatically
+    # to look inside of a templates folder for the html files
     return render(request, 'about.html')
