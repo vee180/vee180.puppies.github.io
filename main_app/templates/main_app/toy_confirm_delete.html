@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Delete Toy</h1>
+<div style="background-color: rosybrown; display: flex; justify-content: center; align-items: center; height: 100vh;">
+	<div>
+  <h1 style="color:black;text-align: center;">Delete Toy</h1>
 
-  <h4>Are you sure you want to delete <span class="teal-text">{{ object.name }}</span>?</h4>
+  <h4 style="color:black;text-align: center;">Are you sure you want to delete <span class="white-text">{{ object.name }}</span>?</h4>
 
   <form action="" method="POST">
     {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="btn">
-    <a href="{% url 'toys_detail' object.id %}">Cancel</a>
+    <input type="submit" value="Yes - Delete!" class="btn" style="background-color: rgb(197,200,227); color: white;width: 600px;font-size:large;">
+    <div style="text-align: center; margin-top: 60px;">
+    <a href="{% url 'toys_detail' object.id %}" style="text-align: center;font-size: 20px;justify-content: center;color: black; margin-bottom: 40px;">Cancel</a></div>
   </form>
 {% endblock %}

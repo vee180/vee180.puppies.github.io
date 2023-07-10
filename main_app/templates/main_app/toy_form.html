@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div style="background-color: white; display: flex; justify-content: center; align-items: center; height: 100vh;">
+	<div>
 {% if object %}
-<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+
+<h1 style="color: black;">Edit <span class="blue-text" style="color:black;">{{object.name}}</span></h1>
 {% else %}
-<h1>Add Toy</h1>
+<h1 style="color:black; text-align: center;">Add Toy</h1>
 {% endif %}
 <!-- Leaving the action empty makes the form post to the same url used to display it -->
-<form action="" method="post">
+<form action="" method="post" style="color:black; font-size: 40px;">
 	<!-- Django requires the following for security purposes -->
 	{% csrf_token %}
-	<table>
+	<table style="font-size: 40px;;">
 		<!-- Render the inputs inside of <tr>s & <td>s -->
 		{{ form.as_table }}
 	</table>
-	<input type="submit" value="Submit!" class="btn">
+	<input type="submit" value="Submit!" class="btn" style="color:white;background-color: rgb(197,200,227); width: 400px;align-items: center;">
 </form>
 {% endblock %}

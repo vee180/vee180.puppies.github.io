@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div style="background-color: white; display: flex; justify-content: center; align-items: center; height: 100vh;">
+  <div>
 
 {% if object %}
-    <h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+    <h1 style="color: black; text-align: center;">Edit <span class="blue-text">{{object.name}}</span></h1>
   {% else %}
-    <h1>Add Puppy</h1>
+    <h1 style="font-size: 50px; color:black;justify-content: center;text-align: center;">Add Puppy</h1>
   {% endif %}
 
 
@@ -14,10 +15,10 @@
   <form action="" method="post">
     <!-- Django requires the following for security purposes -->
     {% csrf_token %}
-    <table>
+    <table style="font-size: 20px;">
       <!-- Render the inputs inside of <tr>s & <td>s -->
       {{ form.as_table }}
     </table>
-    <input type="submit" value="Submit!" class="btn">
+    <input type="submit" value="Submit!" class="btn" style="color:white;background-color: rgb(197,200,227);width: 800px;align-items: center;justify-content: center; text-align: center;align-self: center;display: flex;font-size: larger;">
   </form>
 {% endblock %}
