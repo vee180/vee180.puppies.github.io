@@ -25,4 +25,4 @@ I'm planning to expand the app's functionality to make it even easier for people
 
 #### Screenshots
 
-![](https://i.imgur.com/LEphiKA.jpg)
+![](https://i.imgur.com/Vg4CXGH.jpg)
