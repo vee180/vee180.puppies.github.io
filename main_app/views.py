@@ -6,9 +6,9 @@ from django.views.generic import ListView, DetailView
 # Add the following import
 from django.http import HttpResponse
 
-from .main_app.models import Puppy, Toy
+from .models import Puppy, Toy
 
-from .main_app.forms import FeedingForm
+from .forms import FeedingForm
 
 
 class PuppyCreate(CreateView):
