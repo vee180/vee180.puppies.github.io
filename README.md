@@ -24,3 +24,7 @@ With our intuitive navigation bar, you can easily access the puppy list, toy lis
 ## Future Enhancements
 
 I'm planning to expand the app's functionality to make it even easier for people who want to adopt a pup. My goal is to create a seamless and user-frienldy experience for potential adopters.
+
+#### Web App Screenshots
+
+![](https://i.imgur.com/Vg4CXGH.jpg)
